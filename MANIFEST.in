@@ -1,0 +1,3 @@
+include requirements.txt
+include versioneer.py
+include pyskel/_version.py
