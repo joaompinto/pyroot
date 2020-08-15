@@ -20,7 +20,6 @@ def setup_package():
 
     setup(
         use_scm_version=True,
-        setup_requires=["setuptools_scm"],
         long_description=readme,
         long_description_content_type="text/markdown",
         install_requires=[x for x in requirements.splitlines() if x],
