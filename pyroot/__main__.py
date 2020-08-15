@@ -1,5 +1,5 @@
-from pyroot import __version__
+from setuptools_scm import get_version
 
 
 def main():
-    print(f"{__version__}")
+    print(f"{get_version()}")
