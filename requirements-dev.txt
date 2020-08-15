@@ -2,4 +2,4 @@ black
 flake8
 pre-commit
 pytest
-versioneer
+setuptools_scm

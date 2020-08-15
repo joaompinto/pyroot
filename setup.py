@@ -1,11 +1,8 @@
-from setuptools import setup
-import versioneer
-import sys
-import os
 import io
+import os
+from pathlib import Path
 
-assert sys.version_info >= (3, 6, 0), "requires Python 3.6+"
-from pathlib import Path  # noqa E402
+from setuptools import setup
 
 CURRENT_DIR = Path(__file__).parent
 
@@ -22,8 +19,8 @@ def setup_package():
         requirements = f.read()
 
     setup(
-        version=versioneer.get_version(),
-        cmdclass=versioneer.get_cmdclass(),
+        use_scm_version=True,
+        setup_requires=["setuptools_scm"],
         long_description=readme,
         long_description_content_type="text/markdown",
         install_requires=[x for x in requirements.splitlines() if x],

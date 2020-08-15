@@ -1,5 +1,5 @@
-from . import __version__
+from setuptools_scm import get_version
 
 
 def test_version():
-    assert __version__
+    assert get_version()
