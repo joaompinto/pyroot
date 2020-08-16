@@ -1,9 +1,9 @@
-name: Testing
+name: Multi platform / version testing
 on: push
 
 jobs:
   build:
-    name: Run tests using tox
+    name: Tox test
 
     runs-on: ${{ matrix.os }}
     strategy:
