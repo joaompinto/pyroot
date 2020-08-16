@@ -1,7 +1,7 @@
 from os import makedirs
 from sys import stderr
 from pathlib import Path
-from shutil import rmtree, copyfile
+from shutil import rmtree
 import pkg_resources
 
 
@@ -20,7 +20,7 @@ tox.ini
 class Project:
     def __init__(self, name: str, project_dir: str):
         self._project_dir = project_dir
-        self._name = name or Path(project_dir).basename()
+        self._name = name or Path(project_dir).name
 
     def create(self, force=False):
         proj_dir = self._project_dir
@@ -33,11 +33,5 @@ class Project:
                 exit(2)
             rmtree(proj_dir)
             makedirs(proj_dir)
-        script_dir = Path(Path(__file__).parent, "..")
 
         print(pkg_resources.resource_filename(__name__, "template.zip"))
-        exit(0)
-
-        for filename in BASE_FILES.splitlines():
-            if filename:
-                copyfile(Path(script_dir, filename), Path(proj_dir, filename))
