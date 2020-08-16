@@ -2,19 +2,9 @@ from os import makedirs
 from sys import stderr
 from pathlib import Path
 from shutil import rmtree
-import pkg_resources
-
-
-BASE_FILES = """
-LICENSE
-pyproject.toml
-README.md
-requirements-dev.txt
-requirements.txt
-setup.cfg
-setup.py
-tox.ini
-"""
+from pkg_resources import resource_filename
+from zipfile import ZipFile
+from .template import Adjustments
 
 
 class Project:
@@ -25,13 +15,21 @@ class Project:
     def create(self, force=False):
         proj_dir = self._project_dir
         print(f"Creating project {self._name} at {proj_dir}")
+        self._make_dir(proj_dir, force)
+
+        template_zip = resource_filename(__name__, "template.zip")
+        with ZipFile(template_zip) as zip_file:
+            zip_file.extractall(proj_dir)
+        adj = Adjustments(proj_dir)
+        adj.run()
+
+    @staticmethod
+    def _make_dir(path, force):
         try:
-            makedirs(proj_dir)
+            makedirs(path)
         except FileExistsError:
             if not force:
-                print(f"Directory {proj_dir} already exists", file=stderr)
+                print(f"Directory {path} already exists", file=stderr)
                 exit(2)
-            rmtree(proj_dir)
-            makedirs(proj_dir)
-
-        print(pkg_resources.resource_filename(__name__, "template.zip"))
+            else:
+                rmtree(path)

@@ -139,3 +139,4 @@ cython_debug/
 
 # used only for building
 pyroot/template.zip
+test_project/

@@ -1,16 +1,15 @@
 import io
-import os
 from pathlib import Path
-from zipfile import ZipFile
 from setuptools import setup
+from pyroot.template import create_zip
 
-CURRENT_DIR = Path(__file__).parent
+SCRIPT_DIR = Path(__file__).parent
 
 
 def setup_package():
 
     # Get readme
-    readme_path = os.path.join(CURRENT_DIR, "README.md")
+    readme_path = Path(SCRIPT_DIR, "README.md")
     with io.open(readme_path, encoding="utf8") as f:
         readme = f.read()
 
@@ -18,9 +17,7 @@ def setup_package():
     with io.open("requirements.txt", encoding="utf8") as f:
         requirements = f.read()
 
-    with ZipFile(Path("pyroot", "template.zip"), "w") as zipfile:
-        # Add multiple files to the zip
-        zipfile.write("setup.cfg")
+    create_zip()
 
     setup(
         use_scm_version=True,
