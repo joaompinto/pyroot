@@ -1,7 +1,7 @@
 import io
 import os
 from pathlib import Path
-
+from zipfile import ZipFile
 from setuptools import setup
 
 CURRENT_DIR = Path(__file__).parent
@@ -17,6 +17,10 @@ def setup_package():
     # Get requiremeents
     with io.open("requirements.txt", encoding="utf8") as f:
         requirements = f.read()
+
+    with ZipFile(Path("pyroot", "template.zip"), "w") as zipfile:
+        # Add multiple files to the zip
+        zipfile.write("setup.cfg")
 
     setup(
         use_scm_version=True,
