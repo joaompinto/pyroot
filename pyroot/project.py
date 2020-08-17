@@ -28,7 +28,7 @@ class Project:
             zip_file.extractall(proj_dir)
         adj = Adjustments(proj_dir, self._name)
         adj.run()
-        self._git_init()
+        #  self._git_init()
 
     @staticmethod
     def _run(command):
