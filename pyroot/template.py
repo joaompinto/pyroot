@@ -34,5 +34,6 @@ class Adjustments:
                     print(line, end="")  # this goes to filename due to inplace=1
 
     def run(self):
+        return
         mkdir(Path(self._path, self._package_name))
         self._delete_line("setup.py", "create_zip")
