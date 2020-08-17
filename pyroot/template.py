@@ -28,7 +28,7 @@ class Adjustments:
     def _delete_line(self, filename, del_line):
         filename = Path(self._path, filename)
         matched = re.compile(del_line).search
-        with FileInput(filename, inplace=1, backup=".bak") as file:
+        with FileInput(filename, inplace=1) as file:
             for line in file:
                 if not matched(line):  # save lines that do not match
                     print(line, end="")  # this goes to filename due to inplace=1
