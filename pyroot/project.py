@@ -46,7 +46,7 @@ class Project:
             with open(Path(abs_proj_dir, ".git", "config"), 'a') as git_config:
                 git_config.write(DEFAULT_GIT_CONFIG)
         self._run("git add .")
-        self._run("git commit -m 'Initial commit'")
+        self._run("git commit -a -m 'Initial commit'")
         chdir(cwd)
 
     @staticmethod
