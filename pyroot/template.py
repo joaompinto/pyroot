@@ -3,6 +3,7 @@ import io
 from zipfile import ZipFile
 from pathlib import Path
 from fileinput import FileInput
+from os import mkdir
 
 
 def create_zip():
@@ -20,8 +21,9 @@ def create_zip():
 
 
 class Adjustments:
-    def __init__(self, path):
+    def __init__(self, path, package_name):
         self._path = path
+        self._package_name = package_name
 
     def _delete_line(self, filename, del_line):
         filename = Path(self._path, filename)
@@ -32,4 +34,5 @@ class Adjustments:
                     print(line, end="")  # this goes to filename due to inplace=1
 
     def run(self):
+        mkdir(Path(self._path, self._package_name))
         self._delete_line("setup.py", "create_zip")
