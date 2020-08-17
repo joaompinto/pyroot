@@ -6,6 +6,12 @@ from pkg_resources import resource_filename
 from zipfile import ZipFile
 from .template import Adjustments
 
+DEFAULT_GIT_CONFIG = """
+[user]
+        email = your@email.com
+        name = Your Name
+"""
+
 
 class Project:
     def __init__(self, name: str, project_dir: str):
@@ -31,9 +37,14 @@ class Project:
             exit(rc)
 
     def _git_init(self):
+        abs_proj_dir = Path(self._project_dir).resolve()
         cwd = getcwd()
         chdir(self._project_dir)
         self._run("git init")
+        git_config = Path("~", ".gitconfig").expanduser()
+        if not git_config.exists():
+            with open(Path(abs_proj_dir, ".git", "config"), 'a') as git_config:
+                git_config.write(DEFAULT_GIT_CONFIG)
         self._run("git add .")
         self._run("git commit -m 'Initial commit'")
         chdir(cwd)
